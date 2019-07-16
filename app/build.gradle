@@ -28,4 +28,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.nexenio.bleindoorpositioning:core:0.3.0'
     implementation 'com.kontaktio:sdk:4.0.3'
+    implementation "com.android.support:recyclerview-v7:28.0.0"
 }

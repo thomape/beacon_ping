@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.kontaktio:sdk:4.0.3@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e3e89ef7225fa97faad97d9a5817570/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/1e3e89ef7225fa97faad97d9a5817570/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.kontaktio/sdk/4.0.3/7dd736e05888b8fc633f7488d2251de2fb8f66af/sdk-4.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

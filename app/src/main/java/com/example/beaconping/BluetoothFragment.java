@@ -21,11 +21,17 @@ import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener;
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleIBeaconListener;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
+import com.example.beaconping.Beacon;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class BluetoothFragment extends Fragment {
     private static final int REQUEST_LOCATION = 123;
     private ProximityManager proximityManager;
-
+    //ArrayList<Beacon> beacons = new ArrayList<>();
+    HashMap<String, Beacon> beacons = new HashMap<>();
+    Beacon beacon;
 
     @Nullable
     @Override
@@ -76,6 +82,38 @@ public class BluetoothFragment extends Fragment {
             @Override
             public void onIBeaconDiscovered(IBeaconDevice ibeacon, IBeaconRegion region) {
                 Log.i("Sample", "IBeacon discovered: " + ibeacon.toString());
+
+
+                beacon = new Beacon(ibeacon.getMinor(),ibeacon.getRssi(),ibeacon.getDistance(), ibeacon.getUniqueId());
+
+
+                beacons.
+                if(beacons.size() == 0) {
+                    beacons.add(beacon);
+                }else {
+                    // Attempt to find a similar object
+                    for (int i = 1; i <= beacons.size(); i++) {
+                        Beacon temp = beacons.get(i);
+                        if (temp.getmMinorId() == beacon.getmMinorId()) {
+                            beacons.set(i, beacon);
+                        } else {
+                            beacons.add(beacon);
+                        }
+
+
+                    }
+                }
+/*
+                beacons.get(beacon.getmMinorId());
+
+                if(!beacons.contains(beacon.getmMinorId())) {
+                    beacons.add(beacon);
+                }
+*/
+
+
+                Log.i("SIZE", "IBeacon size: " + beacons.size());
+
             }
         };
     }
