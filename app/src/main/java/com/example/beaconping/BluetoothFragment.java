@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +23,18 @@ import com.kontakt.sdk.android.ble.manager.listeners.IBeaconListener;
 import com.kontakt.sdk.android.ble.manager.listeners.simple.SimpleIBeaconListener;
 import com.kontakt.sdk.android.common.profile.IBeaconDevice;
 import com.kontakt.sdk.android.common.profile.IBeaconRegion;
-import com.example.beaconping.Beacon;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class BluetoothFragment extends Fragment {
     private static final int REQUEST_LOCATION = 123;
     private ProximityManager proximityManager;
-    //ArrayList<Beacon> beacons = new ArrayList<>();
-    HashMap<String, Beacon> beacons = new HashMap<>();
-    Beacon beacon;
+    private HashMap<Integer, Beacon> beacons = new HashMap<Integer, Beacon>();
+    private Beacon beacon;
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
 
     @Nullable
     @Override
@@ -57,6 +60,27 @@ public class BluetoothFragment extends Fragment {
                 onStop();
             }
         });
+
+
+        if(beacons.size() > 0){
+
+            recyclerView = (RecyclerView) view.findViewById(R.id.beacon_list);
+            recyclerView.setHasFixedSize(true);
+
+            layoutManager = new LinearLayoutManager(getContext());
+            recyclerView.setLayoutManager(layoutManager);
+            for (int i= 0; i < 100; i++) {
+                beacons.put(beacon.getmMinorId(), beacon);
+
+            }
+            mAdapter = new BluetoothAdapter(beacons);
+            recyclerView.setAdapter(mAdapter);
+        }
+
+
+
+
+
         return view;
     }
 
@@ -73,7 +97,6 @@ public class BluetoothFragment extends Fragment {
         } else {
 
             System.out.println("Location permissions available, starting location");
-
         }
     }
 
@@ -83,37 +106,14 @@ public class BluetoothFragment extends Fragment {
             public void onIBeaconDiscovered(IBeaconDevice ibeacon, IBeaconRegion region) {
                 Log.i("Sample", "IBeacon discovered: " + ibeacon.toString());
 
-
                 beacon = new Beacon(ibeacon.getMinor(),ibeacon.getRssi(),ibeacon.getDistance(), ibeacon.getUniqueId());
-
-
-                beacons.
-                if(beacons.size() == 0) {
-                    beacons.add(beacon);
+                // Hashmap attempt at keeping the beacons updated
+                if(beacons.containsKey(beacon.getmMinorId())) {
+                    beacons.put(beacon.getmMinorId(), beacon);
                 }else {
-                    // Attempt to find a similar object
-                    for (int i = 1; i <= beacons.size(); i++) {
-                        Beacon temp = beacons.get(i);
-                        if (temp.getmMinorId() == beacon.getmMinorId()) {
-                            beacons.set(i, beacon);
-                        } else {
-                            beacons.add(beacon);
-                        }
-
-
-                    }
+                    beacons.put(beacon.getmMinorId(), beacon);
                 }
-/*
-                beacons.get(beacon.getmMinorId());
-
-                if(!beacons.contains(beacon.getmMinorId())) {
-                    beacons.add(beacon);
-                }
-*/
-
-
                 Log.i("SIZE", "IBeacon size: " + beacons.size());
-
             }
         };
     }
