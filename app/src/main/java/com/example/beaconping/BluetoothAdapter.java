@@ -64,10 +64,11 @@ public class BluetoothAdapter extends RecyclerView.Adapter<BluetoothAdapter.View
 
         Set<Integer> keys = beacons.keySet();
 
+        Integer[] keys_array = keys.toArray(new Integer[keys.size()]);
 
-        for (int x = 0; x <= keys.size(); x++){
+        for (int x = 0; x < keys.size(); x++){
 
-            temp = beacons.get(keys.);
+            temp = beacons.get(keys_array[x]);
             viewHolder.name.setText(String.valueOf(temp.getmMinorId()));
             viewHolder.RSSI.setText(String.valueOf(temp.getmRssi()));
             viewHolder.distance.setText(String.valueOf(temp.getmDistance()));
