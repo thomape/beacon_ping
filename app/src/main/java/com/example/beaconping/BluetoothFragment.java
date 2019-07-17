@@ -61,6 +61,11 @@ public class BluetoothFragment extends Fragment {
             }
         });
 
+        // dummy data
+        beacon = new Beacon(100,2,3.0,"test");
+        Beacon beacon2 = new Beacon(200,2,8.25,"test2");
+        beacons.put(beacon.getmMinorId(), beacon);
+        beacons.put(beacon2.getmMinorId(), beacon2);
 
         if(beacons.size() > 0){
 
@@ -105,14 +110,14 @@ public class BluetoothFragment extends Fragment {
             @Override
             public void onIBeaconDiscovered(IBeaconDevice ibeacon, IBeaconRegion region) {
                 Log.i("Sample", "IBeacon discovered: " + ibeacon.toString());
-
+/*
                 beacon = new Beacon(ibeacon.getMinor(),ibeacon.getRssi(),ibeacon.getDistance(), ibeacon.getUniqueId());
                 // Hashmap attempt at keeping the beacons updated
                 if(beacons.containsKey(beacon.getmMinorId())) {
                     beacons.put(beacon.getmMinorId(), beacon);
                 }else {
                     beacons.put(beacon.getmMinorId(), beacon);
-                }
+                }*/
                 Log.i("SIZE", "IBeacon size: " + beacons.size());
             }
         };

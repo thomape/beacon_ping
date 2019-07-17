@@ -7,11 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.lang.reflect.Array;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class BluetoothAdapter extends RecyclerView.Adapter<BluetoothAdapter.ViewHolder> {
 
     private HashMap<Integer, Beacon> beacons;
+    Beacon temp;
 
 
 
@@ -57,9 +62,17 @@ public class BluetoothAdapter extends RecyclerView.Adapter<BluetoothAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        final Beacon name = beacons.get(i);
-        viewHolder.name.setText((CharSequence) name);
+        Set<Integer> keys = beacons.keySet();
 
+
+        for (int x = 0; x <= keys.size(); x++){
+
+            temp = beacons.get(keys.);
+            viewHolder.name.setText(String.valueOf(temp.getmMinorId()));
+            viewHolder.RSSI.setText(String.valueOf(temp.getmRssi()));
+            viewHolder.distance.setText(String.valueOf(temp.getmDistance()));
+            viewHolder.unique.setText(temp.getmUnique());
+        }
     }
 
     @Override
